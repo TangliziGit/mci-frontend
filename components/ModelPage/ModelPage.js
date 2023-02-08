@@ -1,10 +1,8 @@
 import MenuLayout, {handleErrorWithMessage, refreshDataSource} from "components/MenuLayout/MenuLayout";
 import {Button, Input, Table} from "antd";
 import { useEffect, useState } from 'react';
-import globalStyle from 'pages/index.less';
 import {PlusOutlined} from "@ant-design/icons";
-import {Subject} from "rxjs";
-import {debounceTime, throttleTime} from "rxjs/operators";
+import {Subject, debounceTime, throttleTime} from "rxjs";
 import ModelDrawer from "../ModelDrawer/ModelDrawer";
 import RefreshTimer from "../RefreshTimer/RefreshTimer";
 
@@ -59,7 +57,7 @@ const ModelPage = ({
 
     return (
         <MenuLayout>
-            <div className={globalStyle.contentMargin} >
+            <div className="content-margin" >
                 <Search
                     placeholder="按名查询"
                     onSearch={handleSearch}
@@ -94,7 +92,7 @@ const ModelPage = ({
             </ModelDrawer>
 
             <Table
-                className={globalStyle.contentMargin}
+                className="content-margin"
                 loading={tableLoading}
                 rowKey={rowKey}
                 rowSelection={rowSelection}

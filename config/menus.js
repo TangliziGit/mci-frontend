@@ -1,28 +1,22 @@
-import {ApartmentOutlined, DeploymentUnitOutlined, HomeOutlined, UserOutlined} from "@ant-design/icons";
+import {ScheduleOutlined, FieldTimeOutlined, HomeOutlined, BranchesOutlined, ClusterOutlined} from "@ant-design/icons";
 
 // TODO: icons
 const rawMenus = [
     { key: 'index', title: '首页', path: '/', icon: <HomeOutlined /> },
 
-    { key: 'network', title: '网络管理', icon: <DeploymentUnitOutlined /> },
-    { key: 'network-list', parentKey: "network", title: '网络列表', path: '/network' },
-    { key: 'network-description', parentKey: "network", title: '网络详情', path: '/network/[id]' },
+    { key: 'job', title: '测试任务', icon: <FieldTimeOutlined /> },
+    { key: 'job-list', parentKey: "job", title: '任务列表', path: '/job' },
+    { key: 'job-description', parentKey: "job", title: '任务详情', path: '/job/[id]' },
 
-    { key: 'user', title: '用户管理', icon: <UserOutlined /> },
-    { key: 'user-list', parentKey: "user", title: '用户列表', path: '/user' },
+    { key: 'plan', title: '测试计划', icon: <ScheduleOutlined /> },
+    { key: 'plan-list', parentKey: "plan", title: '计划列表', path: '/plan' },
+    { key: 'plan-description', parentKey: "plan", title: '计划详情', path: '/plan/[id]' },
 
-    { key: 'channel', title: '通道管理', icon: <ApartmentOutlined /> },
-    { key: 'channel-list', parentKey: "channel", title: '通道列表', path: '/channel' },
+    { key: 'repository', title: '代码仓库', icon: <BranchesOutlined /> },
+    { key: 'repository-list', parentKey: "repository", title: '仓库列表', path: '/repository' },
 
-    { key: 'organization', title: '组织管理', icon: <ApartmentOutlined /> },
-    { key: 'organization-list', parentKey: "organization", title: '组织列表', path: '/organization' },
-
-    { key: 'chaincode', title: '链码管理', icon: <ApartmentOutlined /> },
-    { key: 'chaincode-list', parentKey: "chaincode", title: '链码列表', path: '/chaincode' },
-    { key: 'chaincode-transction-list', parentKey: "chaincode", title: '链码交易', path: '/chaincode/transaction' },
-
-    { key: 'block', title: '区块查询', icon: <ApartmentOutlined /> },
-    { key: 'block-list', parentKey: "block", title: '区块列表', path: '/block' },
+    { key: 'machine', title: '测试机状态', icon: <ClusterOutlined /> },
+    { key: 'machine-list', parentKey: "machine", title: '测试机列表', path: '/machine' },
 ];
 
 const getMenusWithChildren = (rawMenus) => {

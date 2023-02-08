@@ -1,5 +1,5 @@
 body {
-    margin: 0px !important;
+    margin: 0 !important;
 }
 
 .trigger {
@@ -22,8 +22,4 @@ body {
 
 .site-layout .site-layout-background {
   background: #fff;
-}
-
-.layout {
-  height: 100vh;
 }

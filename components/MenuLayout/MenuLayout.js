@@ -13,8 +13,8 @@ import moment from "moment";
 
 export const refreshDataSource = async (dataSourceAsync, setDataSource) => {
     try {
-        const { data: { payload: dataSource } } = await dataSourceAsync();
-        setDataSource(dataSource);
+        const { data: dataSource } = await dataSourceAsync();
+        setDataSource(dataSource.payload || dataSource);
     } catch (e) {
         handleErrorWithMessage(e, {
             message: 'refreshing',
@@ -96,7 +96,7 @@ const MenuLayout = ({ ribbon, children }) => {
                 <title>Multiple CI</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
-            <Layout>
+            <Layout className={style.layout}>
                 <ConfigProvider locale={zhCN}>
                     <MenuSider menus={menus} />
                     <Layout>

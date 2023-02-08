@@ -2,7 +2,6 @@
   color: white;
   font-size: 25px;
   font-weight: 600;
-  letter-spacing: 0.1em;
 }
 
 .sider-content {
@@ -14,4 +13,8 @@
 .menu {
   border-right: 0;
   height: 100%;
+}
+
+.header {
+  padding-inline: 30px !important;
 }

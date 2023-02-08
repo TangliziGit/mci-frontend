@@ -39,8 +39,8 @@ const MenuSider = ({ menus }) => {
     return (
         <Sider width={200}>
             <div className={style.siderContent}>
-                <Header className="header" >
-                    <p className={style.appName}>Mictract</p>
+                <Header className={style.header} >
+                    <span className={style.appName}>Multiple CI</span>
                 </Header>
                 <Menu
                     mode="inline"

@@ -1,4 +1,4 @@
-import {Breadcrumb, Layout} from "antd";
+import {Breadcrumb, Card, Layout} from "antd";
 import style from './MenuHeader.module.css';
 import {getMenuKeysByPathname, menuMap} from "config/menus";
 import * as R from 'ramda';
@@ -19,13 +19,15 @@ const MenuHeader = () => {
     );
 
     return (
-        <Header className={["header", style.header]}>
-            <EnvironmentOutlined style={{color: 'white', margin: 'auto 10px auto 0'}}/>
-            <Breadcrumb className={style.breadcrumb} separator=">">
-                {
-                    handle(menuKeys)
-                }
-            </Breadcrumb>
+        <Header>
+            <div className={style.header}>
+                <EnvironmentOutlined style={{margin: '12px'}}/>
+                <Breadcrumb className={style.breadcrumb} separator=">">
+                    {
+                        handle(menuKeys)
+                    }
+                </Breadcrumb>
+            </div>
         </Header>
     );
 }

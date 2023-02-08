@@ -1,9 +1,13 @@
 .header {
   display: flex;
+  height: 35px;
+  margin-top: 16px;
+  background-color: white;
+  padding-left: 10px;
+  border-radius: 10px;
 }
 
 .breadcrumb {
   margin: auto 0 auto 0;
   justify-content: center;
 }
-
