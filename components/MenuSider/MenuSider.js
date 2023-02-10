@@ -19,7 +19,9 @@ const renderMenuItem = ({ key, icon, path, title }) => {
     return (
         <Menu.Item key={key}>
             { icon }
-            <Link href={path}>{title}</Link>
+            <Link href={path} style={{'margin-left': '10px'}}>
+                {title}
+            </Link>
         </Menu.Item>
     );
 }

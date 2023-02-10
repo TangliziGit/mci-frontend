@@ -22,44 +22,21 @@ const api = {
       Api('GET', `http://localhost:3080/${id}/result/lkp-stdout`)
           .done(),
 
-  // ==================== user ====================
-  listUsers: () =>
-      Api('GET', `/api/user`).done(),
+  // ==================== plan ====================
+  listPlans: () =>
+      Api('GET', `/api/plan`).done(),
 
-  createUser: (user) =>
-      Api('POST', `/api/user`)
-          .body(user)
+  getPlan: ({id}) =>
+      Api('GET', `/api/plan/${id}`)
           .done(),
 
-  deleteUser: (userID) =>
-      Api('DELETE', `/api/user`)
-          .body(userID)
+  listJobsByPlanStage: ({planID, stageName}) =>
+      Api('GET', `/api/plan/${planID}/stage/${stageName}/job`)
           .done(),
 
-  listUsersByNetwork: (networkID) =>
-      Api('GET', `/api/user`)
-          .query(networkID)
-          .done(),
-
-
-  // ==================== channel ====================
-  getChannel: ({id}) =>
-      Api('GET', `/api/channel/${id}`)
-          .done(),
-
-  listChannels: () =>
-      Api('GET', `/api/channel`).done(),
-
-  createChannel: (channel) =>
-      Api('POST', `/api/channel`)
-          .body(channel)
-          .done(),
-
-  listChannelsByNetwork: (networkID) =>
-      Api('GET', `/api/channel`)
-          .query(networkID)
-          .done(),
-
+  // ==================== machine ====================
+  listMachines: () =>
+      Api('GET', `/api/machine`).done(),
 
   // ==================== organization ====================
   listOrganizations: () =>

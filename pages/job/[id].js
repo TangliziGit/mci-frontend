@@ -7,7 +7,9 @@ import api from "api";
 import * as R from "ramda";
 import moment from "moment";
 import ComponentLoader from "components/ComponentLoader/ComponentLoader";
+import loadable from '@loadable/component'
 
+const ReactJson = loadable(() => import('react-json-view'))
 const { TabPane } = Tabs;
 
 const JobDetailPage = () => {
@@ -44,7 +46,7 @@ const JobDetailPage = () => {
         ? 'undefined'
         : <a href={repo}> {repo.split('/').slice(-2).join('/')} </a>;
 
-    const renderNetworkDetailInfo = () => (
+    const renderJobDetailInfo = () => (
         <Row>
             <Col span={18}>
                 <Descriptions>
@@ -127,8 +129,8 @@ const JobDetailPage = () => {
         </Row>
     );
 
-    const [ stderr, setStderr ] = useState({});
-    const [ stdout, setStdout ] = useState({});
+    const [ stderr, setStderr ] = useState('');
+    const [ stdout, setStdout ] = useState('');
     useEffect(() => {
         if (jobID) {
             refreshDataSource(() => api.getJobStderr({id: jobID}), setStderr);
@@ -139,9 +141,6 @@ const JobDetailPage = () => {
             refreshDataSource(() => api.getJobStdout({id: jobID}), setStdout);
         }
     }, [ jobID ]);
-
-    const renderOutput = output => output.split('\n')
-        .map(line => <p>{line}</p>);
 
     const renderLog = () => (
         <Row gutter={[24, 18]} style={{ marginTop: '32px' }}>
@@ -182,10 +181,11 @@ const JobDetailPage = () => {
                         <Tabs defaultActiveKey="1">
                             <TabPane tab="详细信息" key="1"> { jobIsLoading? '': renderDetailTab() } </TabPane>
                             <TabPane tab="日志记录" key="2"> { renderLog() } </TabPane>
+                            <TabPane tab="原始数据" key="3"> { <ReactJson src={job} name={false}/> } </TabPane>
                         </Tabs>
                     }
                 >
-                    { renderNetworkDetailInfo() }
+                    { renderJobDetailInfo() }
                 </PageHeader>
             </ComponentLoader>
         </MenuLayout>

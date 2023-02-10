@@ -59,7 +59,7 @@ const ModelPage = ({
         <MenuLayout>
             <div className="content-margin" >
                 <Search
-                    placeholder="按名查询"
+                    placeholder="按ID查询"
                     onSearch={handleSearch}
                     onChange={e => searchInputChange$.next(e.target.value)}
                     style={{ maxWidth: '300px' }}
@@ -98,10 +98,8 @@ const ModelPage = ({
                 rowSelection={rowSelection}
                 columns={columns}
                 dataSource={dataSource.filter(x => {
-                    if (x.nickname !== undefined)
-                        return x.nickname.toLowerCase().includes(searchName.toLowerCase())
-                    if (x.name !== undefined)
-                        return x.name.toLowerCase().includes(searchName.toLowerCase())
+                    if (x.mac !== undefined)
+                        return x.mac.toLowerCase().includes(searchName.toLowerCase())
                     return x.id.toString().includes(searchName.toLowerCase())
                 })}
                 pagination={{

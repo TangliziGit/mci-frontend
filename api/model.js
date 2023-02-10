@@ -1,6 +1,7 @@
 import * as R from "ramda";
 import {Badge, Descriptions, Modal, Tag} from "antd";
 import moment from "moment";
+import Link from "next/link";
 
 export const models = {
     job: [
@@ -14,7 +15,7 @@ export const models = {
             key: 'suite',
             dataIndex: 'suite',
             title: '测试套件',
-            sorter: (a, b) => a.nickname.localeCompare(b.nickname),
+            sorter: (a, b) => a.suite.localeCompare(b.suite),
         },
         {
             key: 'category',
@@ -104,134 +105,109 @@ export const models = {
         },
     ],
 
-    organization: [
+    plan: [
         {
             key: 'id',
             dataIndex: 'id',
             title: 'ID',
-            sorter: (a, b) => a.id - b.id,
+            sorter: (a, b) => a.id.localeCompare(b.id),
         },
         {
-            key: 'nickname',
-            dataIndex: 'nickname',
-            title: '昵称',
-            sorter: (a, b) => a.nickname.localeCompare(b.nickname),
+            key: 'name',
+            dataIndex: 'name',
+            title: '测试套件',
+            sorter: (a, b) => a.name.localeCompare(b.name),
         },
         {
-            key: 'peers',
-            dataIndex: 'peers',
-            title: '包含节点',
-            render: R.pipe(
-                R.map(({ id }) => <Tag key={id} color={'purple'}>{id}</Tag>),
-                R.splitEvery(5),
-                R.addIndex(R.map)((arr, i) => R.append(<br key={i}/>)(arr)),
-                R.flatten,
-            ),
+            key: 'repository',
+            dataIndex: 'repository',
+            title: '代码仓库',
+            render: value => <a href={value}> {value.split('/').slice(-2).join('/')} </a>,
         },
         {
-            key: 'networkID',
-            dataIndex: 'networkID',
-            title: '所属网络ID',
-            render: value => <Tag key={value} color={'green'}>{value}</Tag>
+            key: 'PKGBUILD',
+            dataIndex: 'PKGBUILD',
+            title: 'PKGBUILD',
+            render: value => value
+                ? <a href={value}> {value.split('/').slice(-2).join('/')} </a>
+                : "无",
+        },
+        {
+            key: 'stages',
+            dataIndex: 'stages',
+            title: '测试阶段',
+            render: stages => stages.map(stage => {
+                switch (stage.state) {
+                    case 'success':
+                        return <Tag color='green' key={stage.name}> {stage.name} </Tag>
+                    case 'failure':
+                        return <Tag color='red' key={stage.name}> {stage.name} </Tag>
+                    case 'running':
+                        return <Tag color='geekblue' key={stage.name}> {stage.name} </Tag>
+                    case 'waiting':
+                        return <Tag color='volcano' key={stage.name}> {stage.name} </Tag>
+                }
+            })
+        },
+        {
+            key: 'start_time',
+            dataIndex: 'start_time',
+            title: '开始时间',
+            render: value => moment.unix(value).format('YYYY-MM-DD hh:mm:ss'),
+        },
+        {
+            key: 'end_time',
+            dataIndex: 'end_time',
+            title: '结束时间',
+            render: value => moment.unix(value).format('YYYY-MM-DD hh:mm:ss'),
         },
     ],
 
-    user: [
+    machine: [
         {
             key: 'id',
-            dataIndex: 'id',
-            title: 'ID',
-            sorter: (a, b) => a.id - b.id,
+            dataIndex: 'mac',
+            title: 'MAC地址',
+            sorter: (a, b) => a.mac.localeCompare(b.mac),
         },
         {
-            key: 'nickname',
-            dataIndex: 'nickname',
-            title: '昵称',
-            sorter: (a, b) => a.nickname.localeCompare(b.nickname),
-        },
-        {
-            key: 'role',
-            dataIndex: 'role',
-            title: '角色',
+            key: 'arch',
+            dataIndex: 'arch',
+            title: 'CPU架构',
             filters: [
-                { text: 'admin', value: 'admin' },
-                { text: 'user', value: 'user' },
+                { text: 'x86_64', value: 'x86_64' },
+                { text: 'aarch64', value: 'aarch64' },
             ],
-            onFilter: (value, record) => record.role.includes(value),
-            render: value => {
-                if (value === 'admin')
-                    return <Tag color={'red'}>{value}</Tag>;
-                else
-                    return <Tag color={'blue'}>{value}</Tag>;
-            }
+            onFilter: (value, record) => record.os.includes(value),
+            render: value => <Tag color='orange'> {value} </Tag>,
         },
         {
-            key: 'organizationID',
-            dataIndex: 'organizationID',
-            title: '所属组织ID',
-            render: value => <Tag color={'geekblue'}>{value}</Tag>
+            key: 'ip',
+            dataIndex: 'ip',
+            title: 'IP地址',
         },
         {
-            key: 'networkID',
-            dataIndex: 'networkID',
-            title: '所属网络ID',
-            render: value => <Tag color={'green'}>{value}</Tag>
-        },
-        // {
-        //     key: 'actions',
-        //     dataIndex: 'actions',
-        //     title: '操作',
-        //     render: (_, { id }) => {
-        //         return (
-        //             <Button.Group key={id}>
-        //                 <Button onClick={handleDeleteUser(id)}>删除</Button>
-        //             </Button.Group>
-        //         );
-        //     }
-        // }
-    ],
-
-    channel: [
-        {
-            key: 'id',
-            dataIndex: 'id',
-            title: 'ID',
-            sorter: (a, b) => a.id - b.id,
-        },
-        {
-            key: 'nickname',
-            dataIndex: 'nickname',
-            title: '昵称',
-            sorter: (a, b) => a.nickname.localeCompare(b.nickname),
-        },
-        {
-            key: 'organizations',
-            dataIndex: 'organizations',
-            title: '包含组织ID',
-            render: R.pipe(
-                R.map(({ id }) => <Tag key={id} color={'purple'}>{id}</Tag>),
-                R.splitEvery(5),
-                R.addIndex(R.map)((arr, i) => R.append(<br key={i}/>)(arr)),
-                R.flatten,
-            ),
-        },
-        {
-            key: 'networkID',
-            dataIndex: 'networkID',
-            title: '所属网络ID',
-            render: value => <Tag key={value} color={'green'}>{value}</Tag>
+            key: 'job_id',
+            dataIndex: 'job_id',
+            title: '当前任务',
+            render: id => <Link href={`/job/${id}`}>{id}</Link>
         },
         {
             key: 'status',
             dataIndex: 'status',
-            title: '状态',
+            title: '内部状态',
+            render: status => <Tag color={'geekblue'}>{status}</Tag>
+        },
+        {
+            key: 'state',
+            dataIndex: 'state',
+            title: '运行状态',
             render: R.pipe(
                 R.cond([
-                    [ R.equals('running'),  () => [ '运行中', 'success' ] ],
-                    [ R.equals('starting'), () => [ '创建中', 'processing' ] ],
-                    [ R.equals('stopped'),  () => [ '已停止', 'warning' ] ],
-                    [ R.equals('error'),    () => [ '已出错', 'error' ] ],
-                    [ R.T,                     () => [ '未知错', 'error' ] ],
+                    [ R.equals('idle'),     () => [ '空闲', 'success' ] ],
+                    [ R.equals('busy'),     () => [ '运行', 'processing' ] ],
+                    [ R.equals('down'),     () => [ '宕机', 'error' ] ],
+                    [ R.T,                  () => [ '未知', 'error' ] ],
                 ]),
                 ([ v, status ]) => {
                     return <Tag color={status}><Badge status={status} text={v}/></Tag>;
@@ -239,297 +215,6 @@ export const models = {
             )
         },
     ],
-
-    chaincode: [
-        {
-            key: 'id',
-            dataIndex: 'id',
-            title: 'ID',
-            sorter: (a, b) => a.id - b.id,
-        },
-        {
-            key: 'nickname',
-            dataIndex: 'nickname',
-            title: '昵称',
-            sorter: (a, b) => a.nickname.localeCompare(b.nickname),
-        },
-        {
-            key: 'label',
-            dataIndex: 'label',
-            title: '标签',
-        },
-        // the data of those fields below is too long.
-        // for better presentation, these are moved into the modal in the page.
-        // the field `isDetailInformation: true` is used to do this.
-        {
-            key: 'packageID',
-            dataIndex: 'packageID',
-            title: '包ID',
-            isDetailInformation: true,
-        },
-        {
-            key: 'address',
-            dataIndex: 'address',
-            title: '地址',
-            isDetailInformation: true,
-        },
-        {
-            key: 'policy',
-            dataIndex: 'policy',
-            title: '策略',
-        },
-        {
-            key: 'version',
-            dataIndex: 'version',
-            title: '版本',
-        },
-        {
-            key: 'sequence',
-            dataIndex: 'sequence',
-            title: '序列号',
-        },
-        {
-            key: 'initRequired',
-            dataIndex: 'initRequired',
-            title: '需要初始化',
-            render: value => value ? '是' : '否',
-        },
-        {
-            key: 'channelID',
-            dataIndex: 'channelID',
-            title: '所属通道ID',
-            render: value => <Tag color={'purple'}>{value}</Tag>
-        },
-        {
-            key: 'networkID',
-            dataIndex: 'networkID',
-            title: '所属网络ID',
-            render: value => <Tag color={'green'}>{value}</Tag>
-        },
-        {
-            key: 'status',
-            dataIndex: 'status',
-            title: '状态',
-            render: R.pipe(
-                R.cond([
-                    [ R.equals('starting'),     () => [ '创建中', 'processing' ] ],
-                    [ R.equals('unpacking'),    () => [ '解压中', 'processing' ] ],
-                    [ R.equals('installing'),   () => [ '安装中', 'processing' ] ],
-                    [ R.equals('building'),     () => [ '构建中', 'processing' ] ],
-                    [ R.equals('running'),      () => [ '运行中', 'success' ] ],
-                    [ R.equals('stopped'),      () => [ '已停止', 'warning' ] ],
-                    [ R.equals('error'),        () => [ '已出错', 'error' ] ],
-                    [ R.T,                    () => [ '未知错', 'error' ] ],
-                ]),
-                ([ v, status ]) => {
-                    return <Tag color={status}><Badge status={status} text={v}/></Tag>;
-                },
-            )
-        },
-        // {
-        //     key: 'actions',
-        //     dataIndex: 'actions',
-        //     title: '操作',
-        //     render: (_, { ccid }) => {
-        //         return (
-        //             <Button.Group key={ccid}>
-        //                 <Button onClick={handleInvokeChaincode(ccid)}>调用链码</Button>
-        //             </Button.Group>
-        //         );
-        //     }
-        // }
-    ],
-
-    chaincodeTransaction: [
-        {
-            key: 'id',
-            dataIndex: 'id',
-            title: 'ID',
-            sorter: (a, b) => a.id - b.id,
-        },
-        {
-            key: 'txID',
-            dataIndex: 'txID',
-            title: '交易ID',
-            sorter: (a, b) => a.txID - b.txID,
-            isDetailInformation: true,
-        },
-        {
-            key: 'invokeType',
-            dataIndex: 'invokeType',
-            title: '调用类型',
-            filters: [
-                { text: 'init', value: 'init' },
-                { text: 'query', value: 'query' },
-                { text: 'execute', value: 'execute' },
-            ],
-            onFilter: (value, record) => record.invokeType.includes(value),
-            render: value => <Tag color={'blue'}>{value}</Tag>
-        },
-        {
-            key: 'args',
-            dataIndex: 'args',
-            title: '参数',
-            render: value => {
-                const getTag = (arg, idx) => {
-                    if (idx === 0)
-                        return <Tag color='red' key={arg}> { arg } </Tag>;
-                    return <Tag key={arg}> { arg } </Tag>;
-                };
-
-                const compute = R.pipe(
-                    R.addIndex(R.map)((arg, idx) => getTag(arg, idx)),
-                    R.splitEvery(5),
-                    R.addIndex(R.map)((row, i) => [ ...row, <br key={i}/> ]),
-                    R.flatten()
-                );
-                return <div> { compute(value) } </div>;
-            },
-        },
-        {
-            key: 'message',
-            dataIndex: 'message',
-            title: '消息',
-            isDetailInformation: true,
-            render: value => atob(value),
-        },
-        {
-            key: 'userID',
-            dataIndex: 'userID',
-            title: '用户ID',
-            render: value => <Tag key={value} color={'purple'}>{value}</Tag>
-        },
-        {
-            key: 'chaincodeID',
-            dataIndex: 'chaincodeID',
-            title: '所属链码ID',
-            render: value => <Tag key={value} color={'green'}>{value}</Tag>
-        },
-        {
-            key: 'peerURLs',
-            dataIndex: 'peerURLs',
-            title: 'Peer URL',
-            render: value => {
-                const compute = R.pipe(
-                    R.map(url => <Tag color='cyan' key={url}> { url } </Tag>),
-                    R.splitEvery(3),
-                    R.addIndex(R.map)((row, i) => [ ...row, <br key={i}/> ]),
-                    R.flatten()
-                );
-                return <div> { compute(value) } </div>;
-            },
-        },
-        {
-            key: 'status',
-            dataIndex: 'status',
-            title: '状态',
-            render: R.pipe(
-                R.cond([
-                    [ R.equals('success'),  () => [ '已成功', 'success' ] ],
-                    [ R.equals('execute'),  () => [ '执行中', 'processing' ] ],
-                    [ R.equals('error'),    () => [ '已出错', 'error' ] ],
-                    [ R.T,                  () => [ '未知错', 'error' ] ],
-                ]),
-                ([ v, status ]) => {
-                    return <Tag color={status}><Badge status={status} text={v}/></Tag>;
-                },
-            )
-        },
-    ],
-
-    block: [
-        {
-            key: 'number',
-            dataIndex: [ 'rawBlock', 'header', 'number' ],
-            title: '块号',
-            render: value => value || '0'
-        },
-        {
-            key: 'dataHash',
-            dataIndex: [ 'rawBlock', 'header', 'data_hash' ],
-            title: '块内容 Hash'
-        },
-        {
-            key: 'previousHash',
-            dataIndex: [ 'rawBlock', 'header', 'previous_hash' ],
-            title: '前向块头 Hash',
-            render: value => value || '无'
-        },
-        // {
-        //     key: 'metadata',
-        //     dataIndex: [ 'rawBlock', 'metadata', 'metadata' ],
-        //     title: '元数据',
-        //     isDetailInformation: true,
-        //     isArray: true,
-        //     // render: metadataList => metadataList.map(metadata => (<><Tag style={{whiteSpace: 'pre-wrap'}}>{metadata || '空'}</Tag><br /></>)),
-        // },
-        {
-            key: 'data',
-            dataIndex: 'data',
-            title: '数据',
-            isDetailInformation: true,
-            isArray: true,
-            columns: [
-                {
-                    key: 'key',
-                    dataIndex: 'key',
-                    title: '索引'
-                },
-                {
-                    key: 'headerType',
-                    dataIndex: [ 'ChannelHeader', 'type' ],
-                    title: '头类型',
-                    render: value => {
-                        const headerType = [
-                            'MESSAGE',
-                            'CONFIG',
-                            'CONFIG_UPDATE',
-                            'ENDORSER_TRANSACTION',
-                            'ORDERER_TRANSACTION',
-                            'DELIVER_SEEK_INFO',
-                            'CHAINCODE_PACKAGE'
-                        ];
-
-                        return <Tag color={'red'}>{headerType[value] || 'UNKNOWN'}</Tag>
-                    }
-                },
-                {
-                    key: 'timestamp',
-                    dataIndex: [ 'ChannelHeader', 'timestamp', 'seconds' ],
-                    title: '时间戳'
-                },
-                {
-                    key: 'channelID',
-                    dataIndex: [ 'ChannelHeader', 'channel_id' ],
-                    title: '通道ID',
-                    render: value => <Tag color={'green'}> { value || '无' } </Tag>,
-                },
-                {
-                    key: 'txID',
-                    dataIndex: [ 'ChannelHeader', 'tx_id' ],
-                    title: '交易ID',
-                    render: value => <Tag color={'purple'}> { value || '无' } </Tag>,
-                },
-                {
-                    key: 'extension',
-                    dataIndex: [ 'ChannelHeader', 'extension' ],
-                    title: '扩展信息',
-                    render: value => value || '无'
-                },
-                {
-                    key: 'MSP_ID',
-                    dataIndex: 'MSPID',
-                    title: 'MSP ID',
-                },
-                {
-                    key: 'creator',
-                    dataIndex: 'Creator',
-                    title: '创建者证书',
-                    render: value => <Tag style={{ whiteSpace: 'pre-wrap', lineHeight: '1', fontSize: '10px' }}>{value}</Tag>
-                },
-            ],
-        },
-    ]
 };
 
 export const modelColumns =

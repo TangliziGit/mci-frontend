@@ -1,8 +1,8 @@
 import {Table} from "antd";
 import {useEffect, useState} from "react";
-import {refreshDataSource} from "../../MenuLayout/MenuLayout";
+import {refreshDataSource} from "../MenuLayout/MenuLayout";
 
-const NetworkDetailTable = ({ columns, dataSourceAsync, initialDataSource }) => {
+const RecentModelTable = ({ columns, dataSourceAsync, count, timeColumn }) => {
     const [ tableLoading, setTableLoading ] = useState(true);
     const [ dataSource, setDataSource ] = useState([]);
 
@@ -11,26 +11,22 @@ const NetworkDetailTable = ({ columns, dataSourceAsync, initialDataSource }) => 
             .then(() => setTableLoading(false));
 
     useEffect(() => {
-        if (initialDataSource) {
-            setDataSource(initialDataSource);
-            setTableLoading(false);
-        } else {
-            refreshAsync();
-        }
+        refreshAsync();
     }, []);
+
+    const data = [...dataSource]
+        .sort((a, b) => a[timeColumn] - b[timeColumn])
+        .slice(0, count);
 
     return (
         <Table
             loading={tableLoading}
             columns={columns}
             rowKey={'id'}
-            dataSource={dataSource}
-            pagination={{
-                showSizeChanger: true,
-                showQuickJumper: true,
-            }}
+            dataSource={data}
+            pagination={false}
         />
     )
 };
 
-export default NetworkDetailTable;
+export default RecentModelTable;
