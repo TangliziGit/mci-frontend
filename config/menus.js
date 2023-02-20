@@ -1,4 +1,4 @@
-import {ScheduleOutlined, FieldTimeOutlined, DashboardOutlined, ClusterOutlined} from "@ant-design/icons";
+import {HddOutlined, ScheduleOutlined, FieldTimeOutlined, DashboardOutlined, ClusterOutlined} from "@ant-design/icons";
 
 const rawMenus = [
     { key: 'index', title: '仪表盘', path: '/', icon: <DashboardOutlined /> },
@@ -10,6 +10,10 @@ const rawMenus = [
     { key: 'plan', title: '测试计划', icon: <ScheduleOutlined /> },
     { key: 'plan-list', parentKey: "plan", title: '计划列表', path: '/plan' },
     { key: 'plan-description', parentKey: "plan", title: '计划详情', path: '/plan/[id]', disabled: true },
+
+    { key: 'repo', title: '测试仓库', icon: <HddOutlined /> },
+    { key: 'repo-list', parentKey: "repo", title: '仓库列表', path: '/repo' },
+    { key: 'repo-description', parentKey: "repo", title: '仓库详情', path: '/repo/[name]', disabled: true },
 
     { key: 'machine', title: '测试机状态', icon: <ClusterOutlined /> },
     { key: 'machine-list', parentKey: "machine", title: '测试机列表', path: '/machine' },

@@ -222,6 +222,42 @@ export const models = {
             )
         },
     ],
+
+    repo: [
+        {
+            key: 'id',
+            dataIndex: 'name',
+            title: '名称',
+            sorter: (a, b) => a.id.localeCompare(b.id),
+            render: name => <Link href={`/repo/${name}`}>{name}</Link>
+        },
+        {
+            key: 'job_count',
+            dataIndex: 'job_count',
+            title: '测试任务数',
+            sorter: (a, b) => a.job_count - b.job_count,
+        },
+        {
+            key: 'plan_count',
+            dataIndex: 'plan_count',
+            title: '测试计划数',
+            sorter: (a, b) => a.plan_count - b.plan_count,
+        },
+        {
+            key: 'success_rate',
+            dataIndex: 'success_rate',
+            title: '测试成功率',
+            sorter: (a, b) => a.success_rate - b.success_rate,
+            render: rate => <Tag color={'green'}>{`${(rate * 100).toFixed(2)} %`}</Tag>
+        },
+        {
+            key: 'avg_duration',
+            dataIndex: 'avg_duration',
+            title: '平均耗时 (秒)',
+            sorter: (a, b) => a.avg_duration - b.avg_duration,
+            render: duration => <Tag color={'geekblue'}> {duration.toFixed(2)} </Tag>
+        },
+    ],
 };
 
 export const modelColumns =

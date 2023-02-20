@@ -38,6 +38,17 @@ const api = {
   listMachines: () =>
       Api('GET', `/api/machine`).done(),
 
+  // ==================== repository ====================
+  listRepos: () =>
+      Api('GET', `/api/repo`).done(),
+
+  getRepo: ({name}) =>
+      Api('GET', `/api/repo/${name}`)
+          .done(),
+
+  listPlansByRepoName: ({repoName}) =>
+      Api('GET', `/api/repo/${repoName}/plan`)
+          .done(),
 }
 
 export default api;

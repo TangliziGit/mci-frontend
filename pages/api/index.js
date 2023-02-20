@@ -181,4 +181,14 @@ export const machineSource = [
         "ip": "172.20.125.218",
         "job_id": "14fb2952-127a-4df8-b36a-be05efd693fe"
     }
+];
+
+export const repoSource = [
+    {
+        "name": 'hello-world',
+        "job_count": 20,
+        "plan_count": 8,
+        "success_rate": 0.89,
+        "avg_duration": 25.3,
+    }
 ]

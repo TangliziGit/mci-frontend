@@ -5,7 +5,8 @@ module.exports = {
             {
                 source: '/api/:path*',
                 destination: 'http://localhost:3000/api/:path*'
-            }],
+            }
+        ]
     }),
     webpack: (config) => {
         // camel-case style names from css modules

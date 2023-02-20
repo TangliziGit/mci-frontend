@@ -100,7 +100,9 @@ const ModelPage = ({
                 dataSource={dataSource.filter(x => {
                     if (x.mac !== undefined)
                         return x.mac.toLowerCase().includes(searchName.toLowerCase())
-                    return x.id.toString().includes(searchName.toLowerCase())
+                    if (x.id !== undefined)
+                        return x.id.toLowerCase().includes(searchName.toLowerCase())
+                    return x.name.toString().includes(searchName.toLowerCase())
                 })}
                 pagination={{
                     showSizeChanger: true,
