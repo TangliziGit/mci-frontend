@@ -25,7 +25,7 @@ const JobDetailPage = () => {
             refreshDataSource(() => api.getPlan({id: planID}), setPlan);
     }, [ planID ]);
 
-    const renderRepoPath = repo => repo === undefined
+    const renderRepoPath = repo => repo === undefined || repo === null
         ? 'undefined'
         : <a href={repo}> {repo.split('/').slice(-2).join('/')} </a>;
 

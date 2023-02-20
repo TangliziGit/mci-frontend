@@ -5,11 +5,11 @@ const rawMenus = [
 
     { key: 'job', title: '测试任务', icon: <FieldTimeOutlined /> },
     { key: 'job-list', parentKey: "job", title: '任务列表', path: '/job' },
-    { key: 'job-description', parentKey: "job", title: '任务详情', path: '/job/[id]' },
+    { key: 'job-description', parentKey: "job", title: '任务详情', path: '/job/[id]', disabled: true },
 
     { key: 'plan', title: '测试计划', icon: <ScheduleOutlined /> },
     { key: 'plan-list', parentKey: "plan", title: '计划列表', path: '/plan' },
-    { key: 'plan-description', parentKey: "plan", title: '计划详情', path: '/plan/[id]' },
+    { key: 'plan-description', parentKey: "plan", title: '计划详情', path: '/plan/[id]', disabled: true },
 
     { key: 'machine', title: '测试机状态', icon: <ClusterOutlined /> },
     { key: 'machine-list', parentKey: "machine", title: '测试机列表', path: '/machine' },

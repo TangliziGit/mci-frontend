@@ -15,11 +15,11 @@ const renderSubMenu = ({ key, title, icon, children }) => {
     );
 }
 
-const renderMenuItem = ({ key, icon, path, title }) => {
+const renderMenuItem = ({ key, icon, path, title, disabled = false }) => {
     return (
-        <Menu.Item key={key}>
+        <Menu.Item key={key} disabled={disabled}>
             { icon }
-            <Link href={path} style={{'margin-left': '10px'}}>
+            <Link href={disabled? '': path} style={{marginLeft: '10px'}} disabled={disabled}>
                 {title}
             </Link>
         </Menu.Item>

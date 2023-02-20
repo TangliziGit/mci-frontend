@@ -64,12 +64,14 @@ export const models = {
             dataIndex: 'start_time',
             title: '开始时间',
             render: value => moment.unix(value).format('YYYY-MM-DD hh:mm:ss'),
+            sorter: (a, b) => parseInt(a.start_time) - parseInt(b.start_time),
         },
         {
             key: 'end_time',
             dataIndex: 'end_time',
             title: '结束时间',
             render: value => moment.unix(value).format('YYYY-MM-DD hh:mm:ss'),
+            sorter: (a, b) => parseInt(a.end_time) - parseInt(b.end_time),
         },
         {
             key: 'state',
@@ -154,12 +156,14 @@ export const models = {
             dataIndex: 'start_time',
             title: '开始时间',
             render: value => moment.unix(value).format('YYYY-MM-DD hh:mm:ss'),
+            sorter: (a, b) => parseInt(a.start_time) - parseInt(b.start_time),
         },
         {
             key: 'end_time',
             dataIndex: 'end_time',
             title: '结束时间',
             render: value => moment.unix(value).format('YYYY-MM-DD hh:mm:ss'),
+            sorter: (a, b) => parseInt(a.end_time) - parseInt(b.end_time),
         },
     ],
 
@@ -185,12 +189,15 @@ export const models = {
             key: 'ip',
             dataIndex: 'ip',
             title: 'IP地址',
+            render: ip => ip === undefined ? "无绑定": ip,
         },
         {
-            key: 'job_id',
-            dataIndex: 'job_id',
-            title: '当前任务',
-            render: id => <Link href={`/job/${id}`}>{id}</Link>
+            key: 'job',
+            dataIndex: 'job',
+            title: '最近任务',
+            render: id => id === undefined || id === ''
+                ? "无"
+                : <Link href={`/job/${id}`}>{id}</Link>,
         },
         {
             key: 'status',

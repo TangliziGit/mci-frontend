@@ -17,18 +17,17 @@ export default function Index() {
         refreshDataSource(api.listJobs, setJobs);
     }, []);
 
-    const renderTaskNumber = () => {
+    const renderRecentJobNumber = () => {
         const times = [];
         const counts = [];
         for (let i = 5; i >= 0; i--) {
-            const startTimeLeft = moment().subtract(i, 'hours').unix();
-            const startTimeRight = moment().subtract(i-1, 'hours').unix();
+            const startTimeLeft = moment().subtract(i+1, 'hours').unix();
+            const startTimeRight = moment().subtract(i, 'hours').unix();
             const count = jobs.filter(job => {
-                console.log(startTimeLeft , job.start_time , startTimeRight);
                 return startTimeLeft < job.start_time && job.start_time <= startTimeRight;
             }).length;
 
-            times.push(`${i+1}H ago`);
+            times.push(`${i+1}H内`);
             counts.push(count);
         }
 
@@ -130,8 +129,8 @@ export default function Index() {
         <MenuLayout>
             <Row gutter={[24, 18]} style={{ marginTop: '32px' }}>
                 <Col span={24}>
-                    <Card title={"任务数量"} type='inner'>
-                        { renderTaskNumber() }
+                    <Card title={"6小时内测试任务数量"} type='inner'>
+                        { renderRecentJobNumber() }
                     </Card>
                 </Col>
                 <Col span={12}>

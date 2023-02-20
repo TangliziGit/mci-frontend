@@ -2,7 +2,7 @@ import {Tooltip} from "antd";
 import {SyncOutlined} from "@ant-design/icons";
 import {useEffect, useState} from "react";
 
-const REFRESH_INTERVAL = 30 * 1000;
+const REFRESH_INTERVAL = 5 * 1000;
 
 const RefreshTimer = ({
                           interval = REFRESH_INTERVAL,
