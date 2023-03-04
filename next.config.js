@@ -5,6 +5,14 @@ module.exports = {
             {
                 source: '/api/:path*',
                 destination: 'http://localhost:3000/api/:path*'
+            },
+            {
+                source: '/:id/result/:path*',
+                destination: 'http://localhost:3080/:id/result/:path*'
+            },
+            {
+                source: '/:id/result/',
+                destination: 'http://localhost:3080/:id/result/'
             }
         ]
     }),

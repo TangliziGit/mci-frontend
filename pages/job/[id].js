@@ -117,7 +117,7 @@ const JobDetailPage = () => {
             <Col span={24}>
                 <Card title={"结果文件"} type={'inner'}>
                     <iframe
-                        src={`http://localhost:3080/${job?.id}/result/`}
+                        src={`http://172.29.7.157:3080/${job?.id}/result/`}
                         style={{
                             height: '50vh',
                             width: '100%',

@@ -79,7 +79,7 @@ export const models = {
             title: '运行状态',
             render: R.pipe(
                 R.cond([
-                    [ R.equals('waiting'),  () => [ '创建中', 'processing' ] ],
+                    [ R.equals('waiting'),  () => [ '调度中', 'warning' ] ],
                     [ R.equals('running'),  () => [ '运行中', 'processing' ] ],
                     [ R.equals('done'),     () => [ '已结束', 'success' ] ],
                     [ R.equals('canceled'), () => [ '已撤销', 'error' ] ],
@@ -203,7 +203,7 @@ export const models = {
             key: 'status',
             dataIndex: 'status',
             title: '内部状态',
-            render: status => <Tag color={'geekblue'}>{status}</Tag>
+            render: status => <Tag color={'geekblue'}>{status || "暂无"}</Tag>
         },
         {
             key: 'state',

@@ -9,17 +9,16 @@ const api = {
       Api('GET', `/api/job/${id}`)
           .done(),
 
-  // TODO: make webdav host & port separated
   getJobStats: ({id}) =>
-      Api('GET', `http://localhost:3080/${id}/result/stats.json`)
+      Api('GET', `/${id}/result/stats.json`)
           .done(),
 
   getJobStderr: ({id}) =>
-      Api('GET', `http://localhost:3080/${id}/result/lkp-stderr`)
+      Api('GET', `/${id}/result/lkp-stderr`)
           .done(),
 
   getJobStdout: ({id}) =>
-      Api('GET', `http://localhost:3080/${id}/result/lkp-stdout`)
+      Api('GET', `/${id}/result/lkp-stdout`)
           .done(),
 
   // ==================== plan ====================
