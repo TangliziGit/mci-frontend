@@ -50,7 +50,7 @@ const JobDetailPage = () => {
         <Row>
             <Col span={18}>
                 <Descriptions>
-                    <Descriptions.Item label={'测试套件'}>{job?.id}</Descriptions.Item>
+                    <Descriptions.Item label={'测试套件'}>{job?.suite}</Descriptions.Item>
                     <Descriptions.Item label={'测试类型'}>{job?.category}</Descriptions.Item>
                     <Descriptions.Item label={'测试阶段'}>{job?.stage}</Descriptions.Item>
                     <Descriptions.Item label={'优先级'}>  {job?.priority}</Descriptions.Item>
@@ -58,6 +58,7 @@ const JobDetailPage = () => {
                     <Descriptions.Item label={'操作系统'}>{`${job?.os} ${job?.os_version} (${job?.os_arch})`}</Descriptions.Item>
                     <Descriptions.Item label={'开始时间'}>{startTime.format('YYYY-MM-DD hh:mm:ss')}</Descriptions.Item>
                     <Descriptions.Item label={'结束时间'}>{endTime.format('YYYY-MM-DD hh:mm:ss')}</Descriptions.Item>
+                    <Descriptions.Item label={'失败原因'}>{job?.failure_reason || '无'}</Descriptions.Item>
                 </Descriptions>
             </Col>
 
