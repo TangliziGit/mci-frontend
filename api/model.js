@@ -50,7 +50,7 @@ export const models = {
                 { text: 'x86_64', value: 'x86_64' },
                 { text: 'aarch64', value: 'aarch64' },
             ],
-            onFilter: (value, record) => record.os.includes(value),
+            onFilter: (value, record) => record.os_arch.includes(value),
             render: value => <Tag color='orange'> {value} </Tag>,
         },
         {
@@ -182,7 +182,7 @@ export const models = {
                 { text: 'x86_64', value: 'x86_64' },
                 { text: 'aarch64', value: 'aarch64' },
             ],
-            onFilter: (value, record) => record.os.includes(value),
+            onFilter: (value, record) => record.os_arch.includes(value),
             render: value => <Tag color='orange'> {value} </Tag>,
         },
         {
